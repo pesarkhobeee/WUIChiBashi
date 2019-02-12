@@ -1,3 +1,11 @@
 .logo {
   color: #ed861f;
 }
+
+.login {
+  border:none;
+}
+
+.logout {
+  float: right;
+}

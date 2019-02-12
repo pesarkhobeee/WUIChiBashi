@@ -9,6 +9,7 @@ from wtforms import TextField, HiddenField, ValidationError, RadioField,\
     BooleanField, SubmitField, IntegerField, FormField, validators, DateField
 from wtforms.validators import Required
 
+from flask_simplelogin import login_required
 
 bp = Blueprint('entryPoint', __name__)
 
@@ -23,6 +24,7 @@ class ExampleForm(FlaskForm):
 
 
 @bp.route('/', methods=('GET', 'POST'))
+@login_required  # < --- simple decorator
 def index():
     """TODO"""
     form = ExampleForm()

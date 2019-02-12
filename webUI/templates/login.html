@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% import "bootstrap/utils.html" as util %}
+{% block title %}Login{% endblock %}
+{% block messages %}
+   {{super()}}
+   {%if form.errors %}
+     <ul class="alert alert-danger">
+       {% for field, errors in form.errors.items() %}
+         <li>{{field}} {% for error in errors %}{{ error }}{% endfor %}</li>
+       {% endfor %}
+     </ul>
+   {% endif %}
+{% endblock %}
+
+{% block content %}
+{{util.flashed_messages(dismissible=True)}}
+  <div class="container">
+    {{super()}}
+       <form action="{{ url_for('simplelogin.login', next=request.args.get('next', '/')) }}" method="post">
+            <div class="form-group">
+            {{ form.csrf_token }}
+            {{form.username.label}}<div class="form-control login">{{ form.username }}</div><br>
+            {{form.password.label}}<div class="form-control login"> {{ form.password }}</div><br>
+            </form>
+           <input type="submit" value="Login">
+       </form>
+  </div>
+{% endblock %}
