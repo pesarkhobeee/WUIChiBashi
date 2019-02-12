@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+
+{% block content %}
+{{util.flashed_messages(dismissible=True)}}
+<div class="container">
+  {{super()}}
+  {{ wtf.quick_form(form, form_type='horizontal', button_map={'submit_button': 'primary'})}}
+</div>
+{% endblock %}
