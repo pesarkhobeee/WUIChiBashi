@@ -18,5 +18,8 @@ RUN chmod +x boot.sh
 RUN chown -R flask:flask ./
 USER flask
 
+Run mkdir instance/
+RUN mv web-application.cfg instance/
+
 EXPOSE 5000
 ENTRYPOINT ["./boot.sh"]
