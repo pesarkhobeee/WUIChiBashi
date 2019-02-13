@@ -9,3 +9,13 @@
 .logout {
   float: right;
 }
+
+pre {
+    font-family: monospace;
+    font-size: 10pt;
+    background-color: #000000;
+    color: #00ff00;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 30px;
+}

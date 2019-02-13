@@ -3,13 +3,15 @@ import os
 from flask import Flask, send_from_directory
 from flask_bootstrap import Bootstrap
 from flask_simplelogin import SimpleLogin
+from flask_wtf.csrf import CSRFProtect
+
 
 def create_app(test_config=None):
     """Create and configure an instance of the Flask application."""
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_mapping(
         # a default secret that should be overridden by instance config
-        SECRET_KEY='dev',
+        SECRET_KEY='hard to guess string',
         SIMPLELOGIN_USERNAME='admin',
         SIMPLELOGIN_PASSWORD='admin'
     )
@@ -43,4 +45,5 @@ def create_app(test_config=None):
     app.add_url_rule('/', endpoint='index')
     bootstrap = Bootstrap(app)
     SimpleLogin(app)
+    CSRFProtect(app)
     return app

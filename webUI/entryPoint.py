@@ -28,5 +28,38 @@ class ExampleForm(FlaskForm):
 def index():
     """TODO"""
     form = ExampleForm()
-    form.validate_on_submit()  # to get error messages to the browser
-    return render_template('entryPoint/index.html', form=form)
+    runningProgramID = ''
+    if form.validate_on_submit():
+        flash('Requested for {}'.
+        format(form.new_Host.fullName.data))
+        runningProgramID = runCommand()
+    else :
+        if form.errors:
+            print(form.errors)
+    return render_template('entryPoint/index.html', form=form,
+     runningProgramID=runningProgramID)
+
+@bp.route('/runningProgram/<string:id>')
+@login_required
+def runningProgram(id):
+    file = open("/tmp/" + id, "r")
+    content = file.read()
+    result = {}
+    result["status"] = "ok"
+    result['content'] = content
+    import json
+    return json.dumps(result)
+
+def runCommand():
+    import uuid
+    tmpFileName = str(uuid.uuid4())
+    import subprocess
+    cmd = 'free -m > ' + "/tmp/" + tmpFileName
+    print(cmd)
+    proc = subprocess.Popen(cmd,
+    shell=True, stdin=None ,stdout=None,stderr=subprocess.PIPE, close_fds=True)
+    stderr = proc.communicate()
+    if stderr[0] is not None:
+        return str(stderr)
+    else :
+        return tmpFileName
