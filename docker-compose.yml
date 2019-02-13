@@ -1,0 +1,7 @@
+version: '3'
+services:
+  webui:
+    build: .
+    ports:
+      - "8000:5000"
+    restart: always
