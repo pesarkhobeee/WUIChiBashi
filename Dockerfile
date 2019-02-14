@@ -6,6 +6,8 @@ ENV FLASK_CONFIG production
 RUN adduser -D flask
 WORKDIR /home/flask
 
+RUN apk update && apk add iputils
+
 COPY . ./
 RUN rm -rf instance 2> /dev/null
 RUN python -m venv venv
@@ -14,6 +16,7 @@ RUN venv/bin/pip install -r requirements.txt
 RUN venv/bin/pip install gunicorn
 
 RUN chmod +x boot.sh
+RUN chmod +x worker.py
 
 RUN chown -R flask:flask ./
 USER flask

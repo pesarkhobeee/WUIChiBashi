@@ -26,12 +26,16 @@
     $(function () {
       var runningProgramID = '{{runningProgramID}}';
       if(runningProgramID){
+        var id = setInterval(checkStatus, 1000);
         console.log(runningProgramID);
-        $.getJSON({url: "/runningProgram/" + runningProgramID, success: function(result){
-          if (result.status == 'ok') {
+        function checkStatus(){
+          $.getJSON({url: "/checkStatus/" + runningProgramID, success: function(result){
             $("#terminal").html(result.content);
-          }
-        }});
+            if (result.status != 'running') {
+              clearInterval(id);
+            }
+          }});
+        }
       }
 
     });
