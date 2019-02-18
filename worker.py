@@ -11,7 +11,7 @@ except:
 fileFullAddress = "/tmp/" + fileName
 
 cmd = 'touch ' + fileFullAddress + "; " + \
- 'ping -c 10 ' + host + ' > ' + fileFullAddress + "; " + \
+ 'ping -c 10 ' + host + ' > ' + fileFullAddress + " 2>&1; " + \
  'touch ' + fileFullAddress + ".finished"
 
 proc = subprocess.Popen(cmd,
